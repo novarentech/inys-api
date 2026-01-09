@@ -25,23 +25,23 @@ jobs:
           context: .
           push: true
           tags: ${{secrets.DOCKER_USERNAME}}/novaren-inys-backend:latest
-#   deploy:
-#     runs-on: ubuntu-latest
-#     needs: build
-#     environment: HOSTINGER
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v3
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment: HOSTINGER
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-#       - name: Deploy on VPS
-#         uses: appleboy/ssh-action@v0.1.10
-#         with:
-#           host: ${{ secrets.HOST }}
-#           username: ${{ secrets.USERNAME }}
-#           password: ${{ secrets.PASSWORD }}
-#           port: ${{ secrets.PORT }}
-#           script: |
-#             cd /var/media/inys-backend
-#             docker compose pull
-#             docker compose down
-#             docker compose up -d
+      - name: Deploy on VPS
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /media/inys-api
+            docker compose pull
+            docker compose down
+            docker compose up -d
