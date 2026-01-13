@@ -8,6 +8,7 @@ export default () => ({
         title: 'INYS',
         description: 'INYS API Documentation',
       },
+      autoRegenerate: true,
       'x-strapi-config': {
         mutateDocumentation: (generatedDoc) => {
           // Only keep these tags
