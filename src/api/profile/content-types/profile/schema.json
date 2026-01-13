@@ -31,12 +31,6 @@
       "required": false,
       "unique": false,
       "regex": "^628[0-9]+$"
-    },
-    "articles": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::article.article",
-      "mappedBy": "profile"
     }
   }
 }

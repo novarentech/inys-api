@@ -24,12 +24,6 @@
       },
       "required": true
     },
-    "profile": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::profile.profile",
-      "inversedBy": "articles"
-    },
     "content": {
       "type": "blocks",
       "pluginOptions": {
