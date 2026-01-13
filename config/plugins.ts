@@ -8,7 +8,16 @@ export default () => ({
         title: 'INYS',
         description: 'INYS API Documentation',
       },
-      autoRegenerate: true,
+      servers:[
+        {
+          url:"https://inys.novarentech.com/cms/api",
+          description: "Production server"
+        },
+        {
+          url:"http://127.0.0.1:3000/api",
+          description: "Development server"
+        }
+      ],
       'x-strapi-config': {
         mutateDocumentation: (generatedDoc) => {
           // Only keep these tags
