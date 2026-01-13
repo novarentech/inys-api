@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "applicants",
+  "info": {
+    "singularName": "applicant",
+    "pluralName": "applicants",
+    "displayName": "Applicant"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "birth": {
+      "type": "date",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "university": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "cv": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "videos",
+        "audios",
+        "files"
+      ]
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "accepted": {
+      "type": "boolean",
+      "private": true,
+      "default": false
+    }
+  }
+}

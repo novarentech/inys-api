@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "viewers",
+  "info": {
+    "singularName": "viewer",
+    "pluralName": "viewers",
+    "displayName": "Viewer"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "date": {
+      "type": "date",
+      "required": true,
+      "unique": true
+    },
+    "count": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    }
+  }
+}

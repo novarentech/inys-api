@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "landingpages",
+  "info": {
+    "singularName": "landingpage",
+    "pluralName": "landingpages",
+    "displayName": "Landingpage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "chapter": {
+      "type": "integer"
+    },
+    "isOprec": {
+      "type": "boolean"
+    }
+  }
+}

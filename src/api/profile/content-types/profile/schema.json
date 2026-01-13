@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "profiles",
+  "info": {
+    "singularName": "profile",
+    "pluralName": "profiles",
+    "displayName": "Profile"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "admin::user"
+    },
+    "university": {
+      "type": "string",
+      "required": true
+    },
+    "birth": {
+      "type": "date",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 20,
+      "required": false,
+      "unique": false,
+      "regex": "^628[0-9]+$"
+    },
+    "articles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article",
+      "mappedBy": "profile"
+    }
+  }
+}
