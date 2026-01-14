@@ -89,7 +89,7 @@ export default function ViewerWidget() {
         const apiRange = range === 'today' ? 'today' : range === 'week' ? 'week' : 'month';
 
         const response = await fetch(
-          `/api/viewers/stats?range=${apiRange}&group=day`
+          `/cms/api/viewers/stats?range=${apiRange}&group=day`
         );
 
         if (!response.ok) {
