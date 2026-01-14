@@ -1,7 +1,9 @@
 import type { StrapiApp } from '@strapi/strapi/admin';
 import favicon from "./extensions/favicon.png";
+import { ChartPie, User } from '@strapi/icons'
 import ViewerWidget from './widgets/ViewerWidget';
-import {ChartPie} from '@strapi/icons'
+import ApplicantManager from './pages/ApplicantManager';
+// import ApplicantManager from './pages/ApplicantManager';
 
 export default {
   config: {
@@ -23,8 +25,21 @@ export default {
         defaultMessage: 'Visitors',
       },
       component: async () => {
-        return ViewerWidget;
+        return ViewerWidget
       },
+    });
+
+    app.addMenuLink({
+      to: '/plugins/applicant-manager',
+      icon: User,
+      intlLabel: {
+        id: 'applicant-manager.link',
+        defaultMessage: 'Applicants',
+      },
+      Component: async () => {
+        return ApplicantManager
+      },
+      permissions: [],
     });
   },
 };

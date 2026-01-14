@@ -14,8 +14,9 @@ export default [
                     'http://127.0.0.1:5173',
                     'ws://localhost:5173',
                     'ws://127.0.0.1:5173',
-                  "'self'",
-                   'https:'],
+                    "'self'",
+                    'https:'
+                  ],
           'img-src': ["'self'", 'data:', 'blob:', 'https:'],
           'media-src': ["'self'", 'data:', 'blob:'],
           upgradeInsecureRequests: null,
