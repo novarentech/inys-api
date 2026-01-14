@@ -9,7 +9,13 @@ export default [
         directives: {
           'script-src': ["'self'", "'unsafe-inline'", 'https://unpkg.com'],
           'style-src': ["'self'", "'unsafe-inline'", 'https://unpkg.com'],
-          'connect-src': ["'self'", 'https:'],
+          'connect-src': [
+                    'http://localhost:5173',
+                    'http://127.0.0.1:5173',
+                    'ws://localhost:5173',
+                    'ws://127.0.0.1:5173',
+                  "'self'",
+                   'https:'],
           'img-src': ["'self'", 'data:', 'blob:', 'https:'],
           'media-src': ["'self'", 'data:', 'blob:'],
           upgradeInsecureRequests: null,

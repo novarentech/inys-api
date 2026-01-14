@@ -21,7 +21,7 @@ export default () => ({
       'x-strapi-config': {
         mutateDocumentation: (generatedDoc) => {
           // Only keep these tags
-          const allowedTags = ['Applicant', 'Article', 'Landingpage'];
+          const allowedTags = ['Applicant', 'Article', 'Landingpage','Viewer'];
           
           // Filter tags
           generatedDoc.tags = generatedDoc.tags?.filter(

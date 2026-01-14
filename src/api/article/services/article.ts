@@ -5,8 +5,7 @@ export default factories.createCoreService('api::article.article', ({ strapi }) 
     return super.find({
       ...params,
       populate: {
-        thumbnail: true,
-        ...params.populate,
+        thumbnail: true
       },
     });
   },
@@ -15,8 +14,7 @@ export default factories.createCoreService('api::article.article', ({ strapi }) 
     return super.findOne(entityId, {
       ...params,
       populate: {
-        thumbnail: true,
-        ...params.populate,
+        thumbnail: true
       },
     });
   },
