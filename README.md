@@ -1,61 +1,25 @@
-# 🚀 Getting started with Strapi
+# Inys Backend API
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+[![Strapi v5](https://img.shields.io/badge/Strapi-v5-2F2E8B?style=for-the-badge&logo=strapi&logoColor=white)](https://strapi.io)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-### `develop`
+> **A project by Novaren Tech**
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
+Inys Backend is a headless CMS and custom API powered by Strapi v5. It provides a robust, scalable, and secure data management layer for digital applications, ensuring content is delivered efficiently across multiple platforms.
 
-```
-npm run develop
-# or
-yarn develop
-```
+## 🚀 Key Features
 
-### `start`
-
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
-
-```
-npm run start
-# or
-yarn start
-```
-
-### `build`
-
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
-
-```
-npm run build
-# or
-yarn build
-```
-
-## ⚙️ Deployment
-
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
-
-```
-yarn strapi deploy
-```
-
-## 📚 Learn more
-
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
-
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
-
-## ✨ Community
-
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
-
+-   **Headless CMS**: Flexible content modeling and management.
+-   **REST & GraphQL Support**: Native support for modern API standards.
+-   **Role-Based Access Control**: Granular permissions for users and administrators.
+-   **Automated Documentation**: Integrated OpenAPI/Swagger documentation.
+-   **Database Integration**: Configured for MySQL performance.
 ---
 
-<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+## 🏢 About Novaren Tech
+Novaren Tech is a digital innovation company that turns ideas into scalable, secure, and reliable technology.
+
+- **Website**: [novarentech.com](https://novarentech.com)
+- **Email**: [business@novarentech.com](mailto:business@novarentech.com)
+
+Developed with passion by the Novaren Tech team.
