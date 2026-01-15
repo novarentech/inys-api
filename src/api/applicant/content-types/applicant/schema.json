@@ -46,7 +46,6 @@
     },
     "accepted": {
       "type": "boolean",
-      "private": true,
       "default": false
     }
   }

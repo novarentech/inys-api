@@ -31,6 +31,19 @@
       "required": false,
       "unique": false,
       "regex": "^628[0-9]+$"
+    },
+    "identifier": {
+      "type": "string",
+      "default": "INYS-NEED-VERIFICATION",
+      "required": true
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
     }
   }
 }

@@ -441,9 +441,7 @@ export interface ApiApplicantApplicant extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    accepted: Schema.Attribute.Boolean &
-      Schema.Attribute.Private &
-      Schema.Attribute.DefaultTo<false>;
+    accepted: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     birth: Schema.Attribute.Date & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -567,10 +565,14 @@ export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    avatar: Schema.Attribute.Media<'images' | 'files'>;
     birth: Schema.Attribute.Date & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    identifier: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'INYS-NEED-VERIFICATION'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

@@ -3,6 +3,7 @@ import favicon from "./extensions/favicon.png";
 import { ChartPie, User } from '@strapi/icons'
 import ViewerWidget from './widgets/ViewerWidget';
 import ApplicantManager from './pages/ApplicantManager';
+import ProfileWidget from './widgets/ProfileWidget';
 // import ApplicantManager from './pages/ApplicantManager';
 
 export default {
@@ -26,6 +27,18 @@ export default {
       },
       component: async () => {
         return ViewerWidget
+      },
+    });
+
+    app.widgets.register({
+      id: 'profile-info',
+      icon: User,
+      title: {
+        id: 'profile.info.title',
+        defaultMessage: 'My Profile',
+      },
+      component: async () => {
+        return ProfileWidget;
       },
     });
 

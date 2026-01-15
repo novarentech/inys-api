@@ -17,9 +17,8 @@ export default factories.createCoreController('api::applicant.applicant', ({ str
 
         // 2. Find the "Author" role (Admin Role)
         const authorRole = await strapi.query('admin::role').findOne({
-            where: { name: { $eq: 'Author' } }
+            where: { name: { $eq: 'Anggota' } }
         });
-        console.log((await strapi.query('admin::role').findMany()));
 
         if (!authorRole) {
             return ctx.badRequest('Author role not found in admin roles. Please ensure a role with "Author" exists.');
@@ -39,7 +38,7 @@ export default factories.createCoreController('api::applicant.applicant', ({ str
             roles: [authorRole.id],
             isActive: true,
         });
-
+        
         // 4. Create Profile
         // The Profile schema defines a relation to "admin::user", so we link the new admin user.
         const profile = await strapi.entityService.create('api::profile.profile', {
@@ -47,6 +46,7 @@ export default factories.createCoreController('api::applicant.applicant', ({ str
                 university: applicant.university,
                 birth: applicant.birth,
                 user: newUser.id,
+                identifier: 'INYS-NEED-VERIFICATION',
             },
         });
 
