@@ -5,14 +5,13 @@ import {
     Typography,
     Button,
     TextInput,
-    DatePicker,
     Field,
     Loader,
     Divider,
     Avatar,
     Status,
 } from '@strapi/design-system';
-import { User, ArrowLeft, Check, Upload, Lock, Mail, Phone, Calendar, PresentationChart, PriceTag } from '@strapi/icons';
+import { User, Check, Upload, Lock } from '@strapi/icons';
 import { useAuth, useFetchClient } from '@strapi/admin/strapi-admin';
 
 interface ProfileData {

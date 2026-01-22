@@ -52,20 +52,20 @@ export default {
       Component: async () => {
         return ApplicantManager
       },
-      permissions: [],
+      permissions: [{ action: 'admin::users.create' }],
     });
 
-    app.addMenuLink({
-      to: '/plugins/profile-edit',
-      icon: Pencil,
-      intlLabel: {
-        id: 'profile-edit.link',
-        defaultMessage: 'Edit Profile',
-      },
-      Component: async () => {
-        return ProfileEditPage
-      },
-      permissions: [],
-    });
+    // app.addMenuLink({
+    //   to: '/plugins/profile-edit',
+    //   icon: Pencil,
+    //   intlLabel: {
+    //     id: 'profile-edit.link',
+    //     defaultMessage: 'Edit Profile',
+    //   },
+    //   Component: async () => {
+    //     return ProfileEditPage
+    //   },
+    //   permissions: [],
+    // });
   },
 };
