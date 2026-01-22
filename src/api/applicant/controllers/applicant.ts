@@ -38,14 +38,14 @@ export default factories.createCoreController('api::applicant.applicant', ({ str
             roles: [authorRole.id],
             isActive: true,
         });
-        
+
         // 4. Create Profile
         // The Profile schema defines a relation to "admin::user", so we link the new admin user.
         const profile = await strapi.entityService.create('api::profile.profile', {
             data: {
                 university: applicant.university,
                 birth: applicant.birth,
-                user: newUser.id,
+                admin_user: newUser.id,
                 identifier: 'INYS-NEED-VERIFICATION',
             },
         });

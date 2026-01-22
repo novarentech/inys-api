@@ -6,8 +6,13 @@ export default {
             method: 'POST',
             path: '/applicants/:id/accept',
             handler: 'api::applicant.applicant.accept',
+            // config: {
+            //     // auth: false, // Commented out to enable default auth behavior
+            //     policies: [],
+            //     middlewares: [],
+            // },
             config: {
-                auth: false, // For now, let's keep it simple, but normally you'd want some auth or middleware
+                auth: false,
             },
         },
         // The core routes

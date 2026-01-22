@@ -1,10 +1,10 @@
 import type { StrapiApp } from '@strapi/strapi/admin';
 import favicon from "./extensions/favicon.png";
-import { ChartPie, User } from '@strapi/icons'
+import { ChartPie, User, Pencil } from '@strapi/icons'
 import ViewerWidget from './widgets/ViewerWidget';
 import ApplicantManager from './pages/ApplicantManager';
 import ProfileWidget from './widgets/ProfileWidget';
-// import ApplicantManager from './pages/ApplicantManager';
+import ProfileEditPage from './pages/ProfileEditPage';
 
 export default {
   config: {
@@ -51,6 +51,19 @@ export default {
       },
       Component: async () => {
         return ApplicantManager
+      },
+      permissions: [],
+    });
+
+    app.addMenuLink({
+      to: '/plugins/profile-edit',
+      icon: Pencil,
+      intlLabel: {
+        id: 'profile-edit.link',
+        defaultMessage: 'Edit Profile',
+      },
+      Component: async () => {
+        return ProfileEditPage
       },
       permissions: [],
     });
