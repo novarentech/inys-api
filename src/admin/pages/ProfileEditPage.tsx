@@ -87,34 +87,34 @@ export default function ProfileEditPage() {
     };
 
     const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file || !profile?.id) return;
+    const file = e.target.files?.[0];
+    if (!file || !profile?.id) return;
 
-        try {
-            setUploadingAvatar(true);
-            const formDataUpload = new FormData();
-            formDataUpload.append('files', file);
-            formDataUpload.append('ref', 'api::profile.profile');
-            formDataUpload.append('refId', String(profile.id));
-            formDataUpload.append('field', 'avatar');
+    try {
+        setUploadingAvatar(true);
 
-            const uploadResponse = await fetch('/api/upload', {
-                method: 'POST',
-                body: formDataUpload,
-            });
+        const formData = new FormData();
+        formData.append('avatar', file);
 
-            if (uploadResponse.ok) {
-                const uploadedFiles = await uploadResponse.json();
-                if (uploadedFiles?.[0]) {
-                    setProfile(prev => prev ? { ...prev, avatar: uploadedFiles[0] } : null);
-                }
-            }
-        } catch (err) {
-            console.error('Error uploading avatar:', err);
-        } finally {
-            setUploadingAvatar(false);
+        // send the profile id in query or body
+        const uploadResponse = await fetch(`/api/profiles/avatar?userId=${user.id}`, {
+            method: 'PUT',
+            body: formData,
+        });
+
+        if (!uploadResponse.ok) throw new Error('Upload failed');
+
+        const uploadedFiles = await uploadResponse.json();
+        if (uploadedFiles?.[0]) {
+            setProfile(prev => prev ? { ...prev, avatar: uploadedFiles[0] } : null);
         }
-    };
+    } catch (err) {
+        console.error('Error uploading avatar:', err);
+    } finally {
+        setUploadingAvatar(false);
+    }
+};
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -194,7 +194,7 @@ export default function ProfileEditPage() {
                                 </Box>
                             )}
                         </Box>
-                    {/* <Box>
+                    <Box>
                         <Button
                         variant="secondary"
                         startIcon={<Upload />}
@@ -212,7 +212,7 @@ export default function ProfileEditPage() {
                         <Typography variant="pi" textColor="neutral600" marginTop={2}>
                             JPG, PNG or GIF. Max size 2MB.
                         </Typography>
-                    </Box> */}
+                    </Box>
                     </Flex>
                     <Flex gap={4} wrap="wrap">
                         <Box flex="1" minWidth="280px">

@@ -3,6 +3,7 @@
  */
 
 import { factories } from '@strapi/strapi';
+import profile from '../services/profile';
 
 export default factories.createCoreController('api::profile.profile', ({ strapi }) => ({
     async getMe(ctx) {
@@ -83,15 +84,50 @@ export default factories.createCoreController('api::profile.profile', ({ strapi 
             }, 
         });
 
-        // await strapi.documents('admin::user').update({
-        //     documentId: profile.user.documentId,
-        //     data: {
-        //         firstname: data.firstname,
-        //         lastname: data.lastname,
-        //         email: data.email,
-        //     },                                                                          
-        // });
-
         return { data:profile };
     },
+    async updateAvatar(ctx) {
+        const { userId } = ctx.query;
+        const userIdNumber = Number(userId);
+
+        if (Number.isNaN(userIdNumber)) {
+            return ctx.badRequest('Invalid userId');
+        }
+
+        const { avatar } = ctx.request.files;
+        if (!avatar) {
+            return ctx.badRequest('No file uploaded');
+        }
+
+        // Find the profile
+        const profiles = await strapi.entityService.findMany('api::profile.profile', {
+            filters: {
+                user: {
+                    id: userIdNumber
+                }
+            },
+            populate: {
+                avatar: true,
+                user: true,
+            },
+            limit: 1,
+        });
+
+        const profile = profiles[0];
+        if (!profile) return ctx.notFound('Profile not found for this user');
+
+        // Upload avatar
+        const uploaded = await strapi.plugin('upload').service('upload').upload({
+            data: {
+                ref: 'api::profile.profile',
+                refId: profile.id,
+                field: 'avatar',
+            },
+            files: avatar,
+        });
+
+        ctx.body = uploaded;
+        return uploaded;
+    }
+
 }));

@@ -16,5 +16,13 @@ export default {
                 auth: false
             },
         },
+        {
+            method: 'PUT',
+            path: '/profiles/avatar',
+            handler: 'api::profile.profile.updateAvatar',
+            config: {
+                auth: false
+            },
+        },
     ],
 };
