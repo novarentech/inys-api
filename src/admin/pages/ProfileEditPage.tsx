@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     Box,
     Flex,
@@ -11,7 +11,7 @@ import {
     Avatar,
     Alert,
 } from '@strapi/design-system';
-import { User, Check, Upload, Lock } from '@strapi/icons';
+import { User, Check, Upload } from '@strapi/icons';
 import { useAuth, useFetchClient } from '@strapi/admin/strapi-admin';
 
 interface ProfileData {
@@ -33,6 +33,8 @@ export default function ProfileEditPage() {
     const [uploadingAvatar, setUploadingAvatar] = useState(false);
     const [success, setSuccess] = useState(false);
 
+    const fileInputRef = useRef(null);
+
     const [formData, setFormData] = useState({
         university: '',
         birth: '',
@@ -41,12 +43,6 @@ export default function ProfileEditPage() {
         email: '',
         firstname: '',
         lastname: '',
-    });
-
-    const [passwordData, setPasswordData] = useState({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: '',
     });
 
     useEffect(() => {
@@ -90,10 +86,6 @@ export default function ProfileEditPage() {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handlePasswordChange = (name: string, value: string) => {
-        setPasswordData(prev => ({ ...prev, [name]: value }));
-    };
-
     const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file || !profile?.id) return;
@@ -130,12 +122,14 @@ export default function ProfileEditPage() {
 
         try {
             setSaving(true);
-            await put(`/api/profiles/${profile.id}`, {
+            await put(`/api/profiles/me?userId=${user.id}`, {
                 data: {
                     university: formData.university,
                     birth: formData.birth,
                     phone: formData.phone,
-                    identifier: formData.identifier,
+                    firstname: formData.firstname,
+                    lastname: formData.lastname,
+                    email: formData.email,
                 }
             });
 
@@ -147,22 +141,6 @@ export default function ProfileEditPage() {
         } finally {
             setSaving(false);
         }
-    };
-
-    const handlePasswordSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        if (passwordData.newPassword !== passwordData.confirmPassword) {
-            alert('Passwords do not match');
-            return;
-        }
-
-        if (passwordData.newPassword.length < 6) {
-            alert('Password must be at least 6 characters');
-            return;
-        }
-
-        alert('Password change feature requires admin API integration');
     };
 
     const fullName = `${user?.firstname || ''} ${user?.lastname || ''}`.trim() || user?.username || 'User';
@@ -185,7 +163,6 @@ export default function ProfileEditPage() {
             <Flex gap={3} alignItems="center" marginBottom={6}>
                 <User width={24} height={24} />
                 <Box>
-                    <Typography variant="alpha">Edit Profile</Typography>
                     <Typography variant="epsilon" textColor="neutral600">
                         Manage your account information
                     </Typography>
@@ -201,55 +178,50 @@ export default function ProfileEditPage() {
                 </Box>
             )}
 
-            {/* Avatar Section */}
-            <Box background="neutral0" padding={6} hasRadius shadow="tableShadow" marginBottom={4}>
-                <Typography variant="delta" marginBottom={4}>Profile Photo</Typography>
-                <Flex gap={4} alignItems="center">
-                    <Box position="relative">
-                        {avatarUrl ? (
-                            <Avatar.Item fallback={initials} src={avatarUrl} alt={fullName} />
-                        ) : (
-                            <Avatar.Item fallback={initials}>{initials}</Avatar.Item>
-                        )}
-                        {uploadingAvatar && (
-                            <Box position="absolute" top="0" left="0" right="0" bottom="0" background="neutral800" style={{ opacity: 0.5 }}>
-                                <Loader small />
-                            </Box>
-                        )}
-                    </Box>
-                    <Box>
-                        <label htmlFor="avatar-upload">
-                            <Button variant="secondary" startIcon={<Upload />}>
-                                Change Photo
-                            </Button>
-                        </label>
+            {/* Profile Form */}
+            <form onSubmit={handleSubmit}>
+                <Box background="neutral0" padding={6} hasRadius shadow="tableShadow" marginBottom={4}>
+                    <Flex gap={4} alignItems="center">
+                        <Box position="relative" marginBottom={12}>
+                            {avatarUrl ? (
+                                <Avatar.Item fallback={initials} src={avatarUrl} alt={fullName} />
+                            ) : (
+                                <Avatar.Item fallback={initials}>{initials}</Avatar.Item>
+                            )}
+                            {uploadingAvatar && (
+                                <Box position="absolute" top="0" left="0" right="0" bottom="0" background="neutral800" style={{ opacity: 0.5 }}>
+                                    <Loader small />
+                                </Box>
+                            )}
+                        </Box>
+                    {/* <Box>
+                        <Button
+                        variant="secondary"
+                        startIcon={<Upload />}
+                        onClick={() => fileInputRef.current?.click()}
+                        >
+                        Change Photo
+                        </Button>
                         <input
-                            id="avatar-upload"
+                            ref={fileInputRef}
                             type="file"
                             accept="image/*"
-                            style={{ display: 'none' }}
+                            hidden
                             onChange={handleAvatarUpload}
                         />
                         <Typography variant="pi" textColor="neutral600" marginTop={2}>
                             JPG, PNG or GIF. Max size 2MB.
                         </Typography>
-                    </Box>
-                </Flex>
-            </Box>
-
-            {/* Profile Form */}
-            <form onSubmit={handleSubmit}>
-                <Box background="neutral0" padding={6} hasRadius shadow="tableShadow" marginBottom={4}>
-                    <Typography variant="delta" marginBottom={4}>Profile Information</Typography>
-
+                    </Box> */}
+                    </Flex>
                     <Flex gap={4} wrap="wrap">
                         <Box flex="1" minWidth="280px">
                             <Field.Root name="firstname">
                                 <Field.Label>First Name</Field.Label>
                                 <TextInput
                                     value={formData.firstname}
-                                    disabled
                                     placeholder="Enter first name"
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('firstname', e.target.value)}
                                 />
                             </Field.Root>
                         </Box>
@@ -259,8 +231,8 @@ export default function ProfileEditPage() {
                                 <Field.Label>Last Name</Field.Label>
                                 <TextInput
                                     value={formData.lastname}
-                                    disabled
-                                    placeholder="Enter last name"   
+                                    placeholder="Enter last name"
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('lastname', e.target.value)}
                                 />
                             </Field.Root>
                         </Box>
@@ -271,8 +243,8 @@ export default function ProfileEditPage() {
                                 <TextInput
                                     type="email"
                                     value={formData.email}
-                                    disabled
                                     placeholder="Enter email"
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('email', e.target.value)}
                                 />
                             </Field.Root>
                         </Box>
@@ -282,8 +254,8 @@ export default function ProfileEditPage() {
                                 <Field.Label>Member ID</Field.Label>
                                 <TextInput
                                     value={formData.identifier}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('identifier', e.target.value)}
                                     placeholder="Enter member ID"
+                                    disabled
                                 />
                             </Field.Root>
                         </Box>
@@ -327,61 +299,6 @@ export default function ProfileEditPage() {
                     <Flex justifyContent="flex-end">
                         <Button type="submit" startIcon={<Check />} loading={saving}>
                             Save Changes
-                        </Button>
-                    </Flex>
-                </Box>
-            </form>
-
-            {/* Password Form */}
-            <form onSubmit={handlePasswordSubmit}>
-                <Box background="neutral0" padding={6} hasRadius shadow="tableShadow">
-                    <Typography variant="delta" marginBottom={4}>Change Password</Typography>
-
-                    <Flex gap={4} wrap="wrap">
-                        <Box flex="1" minWidth="280px">
-                            <Field.Root name="currentPassword">
-                                <Field.Label>Current Password</Field.Label>
-                                <TextInput
-                                    type="password"
-                                    value={passwordData.currentPassword}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handlePasswordChange('currentPassword', e.target.value)}
-                                    placeholder="Enter current password"
-                                />
-                            </Field.Root>
-                        </Box>
-
-                        <Box flex="1" minWidth="280px" />
-
-                        <Box flex="1" minWidth="280px">
-                            <Field.Root name="newPassword">
-                                <Field.Label>New Password</Field.Label>
-                                <TextInput
-                                    type="password"
-                                    value={passwordData.newPassword}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handlePasswordChange('newPassword', e.target.value)}
-                                    placeholder="Enter new password"
-                                />
-                            </Field.Root>
-                        </Box>
-
-                        <Box flex="1" minWidth="280px">
-                            <Field.Root name="confirmPassword">
-                                <Field.Label>Confirm Password</Field.Label>
-                                <TextInput
-                                    type="password"
-                                    value={passwordData.confirmPassword}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handlePasswordChange('confirmPassword', e.target.value)}
-                                    placeholder="Confirm new password"
-                                />
-                            </Field.Root>
-                        </Box>
-                    </Flex>
-
-                    <Divider marginTop={6} marginBottom={4} />
-
-                    <Flex justifyContent="flex-end">
-                        <Button type="submit" variant="secondary" startIcon={<Lock />} loading={saving}>
-                            Update Password
                         </Button>
                     </Flex>
                 </Box>

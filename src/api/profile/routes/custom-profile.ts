@@ -5,9 +5,15 @@ export default {
             path: '/profiles/me',
             handler: 'api::profile.profile.getMe',
             config: {
-                auth: false,
-                // policies: [],
-                // middlewares: [],
+                auth: false
+            },
+        },
+        {
+            method: 'PUT',
+            path: '/profiles/me',
+            handler: 'api::profile.profile.updateMe',
+            config: {
+                auth: false
             },
         },
     ],
