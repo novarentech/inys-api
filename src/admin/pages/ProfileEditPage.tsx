@@ -9,7 +9,7 @@ import {
     Loader,
     Divider,
     Avatar,
-    Status,
+    Alert,
 } from '@strapi/design-system';
 import { User, Check, Upload, Lock } from '@strapi/icons';
 import { useAuth, useFetchClient } from '@strapi/admin/strapi-admin';
@@ -185,7 +185,7 @@ export default function ProfileEditPage() {
             <Flex gap={3} alignItems="center" marginBottom={6}>
                 <User width={24} height={24} />
                 <Box>
-                    <Typography variant="alpha" as="h1">Edit Profile</Typography>
+                    <Typography variant="alpha">Edit Profile</Typography>
                     <Typography variant="epsilon" textColor="neutral600">
                         Manage your account information
                     </Typography>
@@ -195,9 +195,9 @@ export default function ProfileEditPage() {
             {/* Success message */}
             {success && (
                 <Box marginBottom={4}>
-                    <Status variant="success" showBullet={false}>
+                    <Alert closeLabel="Close alert" variant="success">
                         <Typography>Profile saved successfully!</Typography>
-                    </Status>
+                    </Alert>
                 </Box>
             )}
 
@@ -207,9 +207,9 @@ export default function ProfileEditPage() {
                 <Flex gap={4} alignItems="center">
                     <Box position="relative">
                         {avatarUrl ? (
-                            <Avatar src={avatarUrl} alt={fullName} />
+                            <Avatar.Item fallback={initials} src={avatarUrl} alt={fullName} />
                         ) : (
-                            <Avatar>{initials}</Avatar>
+                            <Avatar.Item fallback={initials}>{initials}</Avatar.Item>
                         )}
                         {uploadingAvatar && (
                             <Box position="absolute" top="0" left="0" right="0" bottom="0" background="neutral800" style={{ opacity: 0.5 }}>
@@ -219,7 +219,7 @@ export default function ProfileEditPage() {
                     </Box>
                     <Box>
                         <label htmlFor="avatar-upload">
-                            <Button as="span" variant="secondary" startIcon={<Upload />}>
+                            <Button variant="secondary" startIcon={<Upload />}>
                                 Change Photo
                             </Button>
                         </label>
@@ -251,7 +251,6 @@ export default function ProfileEditPage() {
                                     disabled
                                     placeholder="Enter first name"
                                 />
-                                <Field.Hint>Contact admin to change</Field.Hint>
                             </Field.Root>
                         </Box>
 
@@ -261,9 +260,8 @@ export default function ProfileEditPage() {
                                 <TextInput
                                     value={formData.lastname}
                                     disabled
-                                    placeholder="Enter last name"
+                                    placeholder="Enter last name"   
                                 />
-                                <Field.Hint>Contact admin to change</Field.Hint>
                             </Field.Root>
                         </Box>
 
@@ -276,7 +274,6 @@ export default function ProfileEditPage() {
                                     disabled
                                     placeholder="Enter email"
                                 />
-                                <Field.Hint>Contact admin to change</Field.Hint>
                             </Field.Root>
                         </Box>
 

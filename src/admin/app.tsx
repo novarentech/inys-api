@@ -4,7 +4,7 @@ import { ChartPie, User, Pencil } from '@strapi/icons'
 import ViewerWidget from './widgets/ViewerWidget';
 import ApplicantManager from './pages/ApplicantManager';
 import ProfileWidget from './widgets/ProfileWidget';
-import ProfileEditPage from './pages/ProfileEditPage';
+// import ProfileEditPage from './pages/ProfileEditPage';
 
 export default {
   config: {
@@ -55,17 +55,15 @@ export default {
       permissions: [{ action: 'admin::users.create' }],
     });
 
-    // app.addMenuLink({
-    //   to: '/plugins/profile-edit',
-    //   icon: Pencil,
-    //   intlLabel: {
-    //     id: 'profile-edit.link',
-    //     defaultMessage: 'Edit Profile',
-    //   },
-    //   Component: async () => {
-    //     return ProfileEditPage
-    //   },
-    //   permissions: [],
-    // });
+    app.addMenuLink({
+      to: '/plugins/profile-edit',
+      icon: Pencil,
+      intlLabel: {
+        id: 'profile-edit.link',
+        defaultMessage: 'Edit Profile',
+      },
+      Component: async () => import('./pages/ProfileEditPage'),
+      permissions: [],
+    });
   },
 };
