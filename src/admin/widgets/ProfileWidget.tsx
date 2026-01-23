@@ -151,7 +151,7 @@ export default function ProfileWidget() {
                     fullWidth
                     startIcon={<Pencil />}
                     onClick={() => {
-                        window.location.href = '/admin/plugins/profile-edit';
+                        window.location.href = '/cms/admin/plugins/profile-edit';
                     }}
                 >
                     Edit Profile
